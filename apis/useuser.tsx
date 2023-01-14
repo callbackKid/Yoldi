@@ -1,6 +1,5 @@
 import Cookies from "js-cookie";
 import useSWR, { preload } from "swr";
-import { dataType } from "../app/types";
 
 // Login + Sign-UP
 export async function sendRequest(url: string, { arg }: { arg: any }) {
