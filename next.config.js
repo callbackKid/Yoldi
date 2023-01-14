@@ -13,8 +13,8 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "test.yoldi.agency",
-        port: "",
+        hostname: "**test.yoldi.agency",
+        port: "localhost:3000",
         pathname: "/api/image/**",
       },
     ],

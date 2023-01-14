@@ -50,7 +50,11 @@ export async function userFetcher(url: string) {
 }
 
 export async function imageGetRequest(url: string) {
-  const r = await fetch(url);
+  const r = await fetch(url, {
+    headers: {
+      accept: "application/json",
+    },
+  });
   return await r.json();
 }
 //Post Image
