@@ -1,0 +1,49 @@
+.accountline {
+  width: 62.5vw;
+  height: 60px;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.rightContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.image {
+  box-sizing: border-box;
+  margin-right: 20px;
+  min-width: 50px;
+  height: 50px;
+  background: #f3f3f3;
+  border: 1px solid #e6e6e6;
+  border-radius: 999999px;
+}
+
+.image p {
+  text-align: center;
+}
+
+.email {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 160%;
+  color: #838383;
+}
+
+@media (max-width: 700px) {
+  .rightContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+  }
+}

@@ -1,0 +1,115 @@
+.accountPage {
+  box-sizing: border-box;
+  background: #ffffff;
+  height: 100vw;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.wallpaperContainer {
+  display: block;
+  width: 100vw;
+  height: 200px;
+  background: #f3f3f3;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.headerContainer {
+  margin-top: 80px;
+  margin-left: 18.75vw;
+  margin-right: 18.75vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.name {
+  text-align: left;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 140%;
+  color: #000000;
+}
+
+.email {
+  height: 26px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 160%;
+  color: #838383;
+}
+
+.image {
+  position: absolute;
+  margin-top: 10px;
+  width: 100px;
+  height: 100px;
+  left: 18.75vw;
+  top: 150px;
+  color: #000000;
+  background: #f3f3f3;
+  border: 1px solid #e6e6e6;
+  border-radius: 50%;
+}
+
+.imageText {
+  text-align: center;
+  line-height: 0.66;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+}
+.description {
+  width: 47vw;
+  height: auto;
+  margin-left: 18.75vw;
+  color: #000000;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 160%;
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 700px) {
+  .headerContainer {
+    margin-top: 80px;
+    display: flex;
+    width: auto;
+    margin-left: 8vw;
+    margin-right: 8vw;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .email {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .image {
+    left: 8vw;
+    top: 150px;
+  }
+
+  .description {
+    margin-top: 8vw;
+    width: 84vw;
+    margin-left: 8vw;
+  }
+  .logoutButton {
+    margin-left: 8vw;
+  }
+}

@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter");
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: #f3f3f3;
+  padding: 0;
+  margin: 0;
+  font-family: "Inter";
+  height: 100%;
+  min-height: 100%;
+}
+
+@media (max-width: 400px) {
+  body {
+    background: #ffffff;
+  }
+}

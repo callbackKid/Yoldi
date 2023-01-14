@@ -1,0 +1,18 @@
+.headerAcc {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 140%;
+  color: #000000;
+}
+
+.accountPage {
+  padding-left: 18.75vw;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background: #ffffff;
+}
