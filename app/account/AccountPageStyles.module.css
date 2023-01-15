@@ -87,7 +87,26 @@
   background: #f3f3f3;
   border-radius: 50%;
 }
-
+.downloadAvatarButton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100px;
+  height: 100px;
+  color: #ffffff;
+  background: #000000;
+  border: none;
+  border-radius: 50%;
+}
+.downloadAvatarButton input {
+  display: none;
+}
+.downloadImage {
+  position: absolute;
+  top: 34px;
+  left: 29px;
+}
 .image {
   width: 100px;
   height: 100px;

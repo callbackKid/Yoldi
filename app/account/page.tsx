@@ -18,10 +18,14 @@ function AccountPage() {
   const [styleWallpaper, setStyleWallpaper] = useState({ display: "none" });
   const [styleAvatar, setStyleAvatar] = useState({ display: "none" });
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
   const [fill, setFill] = useState(false);
+  const [selectedAvatarImage, setSelectedAvatarImage] = useState<File | null>(
+    null
+  );
+
+  const [isOpen, setIsOpen] = useState(false);
+
   const { user: data, error, isLoading } = useUser();
-  const reader = new FileReader();
   data ? Cookies.set("name", data.name) : "error";
 
   let description = null;
@@ -64,7 +68,20 @@ function AccountPage() {
       console.log(e);
     }
   }
+  async function uploadAvatarImage(event: ChangeEvent<HTMLInputElement>) {
+    event.target.files instanceof FileList &&
+      setSelectedAvatarImage(event.target.files[0]);
 
+    let image = event.target.files![0];
+    try {
+      const img = await trigger({
+        image,
+      });
+      Cookies.set("imageId", img.id);
+    } catch (e) {
+      console.log(e);
+    }
+  }
   const logOut = () => {
     Cookies.remove("profile");
     router.push("/login");
@@ -110,9 +127,10 @@ function AccountPage() {
                 height={19}
                 width={19}
               ></Image>
-              <label htmlFor="files">Загрузить</label>
+              <label htmlFor="wallpaper">Загрузить</label>
               <input
-                id="files"
+                src=""
+                id="wallpaper"
                 type="file"
                 name="wallpaperImage"
                 onChange={uploadImage}
@@ -153,9 +171,9 @@ function AccountPage() {
             setStyleAvatar({ display: "none" });
           }}
         >
-          {data.image ? (
+          {selectedAvatarImage ? (
             <Image
-              src={data.image}
+              src={URL.createObjectURL(selectedAvatarImage)}
               className={styles.image}
               alt={data.name.slice()}
               width={50}
@@ -168,6 +186,24 @@ function AccountPage() {
               </p>
             </div>
           )}
+          <div className={styles.downloadAvatarButton} style={styleAvatar}>
+            <label htmlFor="avatar">
+              <Image
+                className={styles.downloadImage}
+                src="/downloadAvatar.svg"
+                alt="uploadButton"
+                height={31.25}
+                width={40.62}
+              ></Image>
+            </label>
+            <input
+              src="/downloadAvatar.svg"
+              id="avatar"
+              type="file"
+              name="avatar"
+              onChange={uploadAvatarImage}
+            />
+          </div>
         </div>
 
         <div className={styles.headerContainer}>

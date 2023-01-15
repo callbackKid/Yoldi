@@ -3,13 +3,13 @@ import styles from "./AccountListStyles.module.css";
 import useSWR from "swr";
 import { fetcher } from "../../apis/useuser";
 import AccountLine from "../../components/AccountLine";
-
+import { useState } from "react";
 const AccountsList = () => {
   const { data, error, isLoading } = useSWR(
     `https://frontend-test-api.yoldi.agency/api/user`,
     fetcher
   );
-
+  const [styleWallpaper, setStyleWallpaper] = useState({ display: "none" });
   if (error) return <div>ошибка загрузки</div>;
   if (isLoading) return <div>загрузка...</div>;
 
