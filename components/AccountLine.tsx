@@ -8,7 +8,7 @@ const AccountLine = ({ acc }: any) => {
   const { image, name, email, slug } = acc || {};
 
   return (
-    <Link href={`/accountsList/${slug}`}>
+    <Link href={`/accountsList/${slug}`} className={styles.link}>
       <div className={styles.accountline}>
         {image ? (
           <Image

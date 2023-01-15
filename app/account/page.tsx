@@ -17,11 +17,11 @@ function AccountPage() {
   const router = useRouter();
   const [styleWallpaper, setStyleWallpaper] = useState({ display: "none" });
   const [styleAvatar, setStyleAvatar] = useState({ display: "none" });
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [fill, setFill] = useState(false);
   const { user: data, error, isLoading } = useUser();
-
+  const reader = new FileReader();
   data ? Cookies.set("name", data.name) : "error";
 
   let description = null;
@@ -41,7 +41,6 @@ function AccountPage() {
     `https://frontend-test-api.yoldi.agency/api/image/${id}`,
     imageGetRequest
   );
-  //  console.log(image);
 
   data ? Cookies.set("slug", data.slug) : "error";
 
@@ -52,17 +51,15 @@ function AccountPage() {
 
   async function uploadImage(event: ChangeEvent<HTMLInputElement>) {
     event.target.files instanceof FileList &&
-      //setSelectedImage(event.target.files[0]);
-      setFill(true);
+      setSelectedImage(event.target.files[0]);
+
+    setFill(true);
     let image = event.target.files![0];
     try {
       const img = await trigger({
         image,
       });
       Cookies.set("imageId", img.id);
-
-      console.log(img.url);
-      setSelectedImage(img.url);
     } catch (e) {
       console.log(e);
     }
@@ -99,7 +96,7 @@ function AccountPage() {
             width={0}
             height={0}
             className={styles.wallpaperContainer}
-            src={selectedImage}
+            src={URL.createObjectURL(selectedImage)}
           />
         ) : (
           <div className={styles.wallpaperContainer}></div>
