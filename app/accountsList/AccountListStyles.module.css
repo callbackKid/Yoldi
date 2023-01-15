@@ -16,3 +16,11 @@
   flex-direction: column;
   background: #ffffff;
 }
+
+@media (max-width: 600px) {
+  .accountPage {
+    padding-left: 20px;
+    padding-right: 20px;
+    width: auto;
+  }
+}
