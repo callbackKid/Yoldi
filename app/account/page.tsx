@@ -1,10 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import styles from "./AccountPageStyles.module.css";
 import Image from "next/image";
 import Cookies from "js-cookie";
-import useSWR from "swr";
+import useSWR, { preload } from "swr";
 import ModalWindow from "../../components/ModalWindow";
 import useUser, {
   imageGetRequest,
@@ -19,39 +19,35 @@ function AccountPage() {
   const [styleAvatar, setStyleAvatar] = useState({ display: "none" });
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [fill, setFill] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedAvatarImage, setSelectedAvatarImage] = useState<File | null>(
     null
   );
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const { user: data, error, isLoading } = useUser();
-  data ? Cookies.set("name", data.name) : "error";
-
-  let description = null;
-
-  if (typeof window !== "undefined") {
-    description = window.localStorage.getItem("description");
-  }
+  const { user: data, error, mutate, isLoading } = useUser();
 
   const id = Cookies.get("imageId");
-
-  // const { data, error, isLoading } = useSWR(
-  //   "https://frontend-test-api.yoldi.agency/api/profile",
-  //   profileFetcher
-  // );
-
   const { data: image } = useSWR(
     `https://frontend-test-api.yoldi.agency/api/image/${id}`,
     imageGetRequest
   );
 
-  data ? Cookies.set("slug", data.slug) : "error";
-
   const { trigger } = useSWRMutation(
     "https://frontend-test-api.yoldi.agency/api/image",
     imagePostRequest
   );
+  if (error) return <div>ошибка загрузки</div>;
+  if (isLoading) return <div>загрузка...</div>;
+
+  let userName = "";
+
+  data ? Cookies.set("name", data.name) : "error";
+  data ? Cookies.set("slug", data.slug) : "error";
+  data ? data.name.slice(0, 1).toUpperCase() : "user";
+
+  let description = null;
+  if (typeof window !== "undefined") {
+    description = window.localStorage.getItem("description");
+  }
 
   async function uploadImage(event: ChangeEvent<HTMLInputElement>) {
     event.target.files instanceof FileList &&
@@ -83,17 +79,14 @@ function AccountPage() {
     }
   }
   const logOut = () => {
-    Cookies.remove("profile");
     router.push("/login");
+    Cookies.remove("profile");
   };
 
   const deleteImage = () => {
     setSelectedImage(null);
     setFill(false);
   };
-
-  if (error) return <div>ошибка загрузки</div>;
-  if (isLoading) return <div>загрузка...</div>;
 
   return (
     <div className={styles.accountPage}>
@@ -175,15 +168,13 @@ function AccountPage() {
             <Image
               src={URL.createObjectURL(selectedAvatarImage)}
               className={styles.image}
-              alt={data.name.slice()}
+              alt={userName}
               width={50}
               height={50}
             />
           ) : (
             <div className={styles.image}>
-              <p className={styles.imageText}>
-                {data.name.slice(0, 1).toUpperCase()}
-              </p>
+              <p className={styles.imageText}>{userName}</p>
             </div>
           )}
           <div className={styles.downloadAvatarButton} style={styleAvatar}>

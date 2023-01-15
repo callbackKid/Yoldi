@@ -7,31 +7,35 @@ import styles from "./HeaderStyles.module.css";
 import Link from "next/link";
 import Cookies from "js-cookie";
 import useSWR, { preload } from "swr";
-import useUser from "../apis/useuser";
+import useUser, { profileFetcher } from "../apis/useuser";
 
 export const Header = () => {
-  let profile = null;
-  const { user: data, error, isLoading } = useUser();
+  let profile = (
+    <Link className={styles.button} href="/login">
+      Войти
+    </Link>
+  );
+  //const { user: data, error, isLoading } = useUser();
 
-  if (error) return <div>ошибка загрузки</div>;
-  if (isLoading) return <div>загрузка...</div>;
+  // if (error) return <div>ошибка загрузки</div>;
+  // if (isLoading) return <div>загрузка...</div>;
 
-  data
-    ? (profile = (
-        <div className={styles.container}>
-          <p className={styles.name}>{data.name}</p>
-          <div className={styles.image}>
-            <p className={styles.imageText}>
-              {data.name.slice(0, 1).toUpperCase()}
-            </p>
-          </div>
-        </div>
-      ))
-    : (profile = (
-        <Link className={styles.button} href="/login">
-          Войти
-        </Link>
-      ));
+  // !data
+  //   ? (profile = (
+  //       <Link className={styles.button} href="/login">
+  //         Войти
+  //       </Link>
+  //     ))
+  //   : (profile = (
+  //       <div className={styles.container}>
+  //         <p className={styles.name}>{data.name}</p>
+  //         <div className={styles.image}>
+  //           <p className={styles.imageText}>
+  //             {/* {data.name.slice(0, 1).toUpperCase()} */}
+  //           </p>
+  //         </div>
+  //       </div>
+  //     ));
 
   return (
     <header className={styles.header}>
