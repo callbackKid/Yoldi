@@ -9,25 +9,29 @@ import Cookies from "js-cookie";
 import useSWR, { preload } from "swr";
 import useUser from "../apis/useuser";
 
-export const Header = (props: User) => {
-  // const { user: data, error, isLoading } = useUser();
-  // console.log(data);
-  // let profile = <p>sdfd</p>;
-  // console.log(data);
-  // console.log(Cookies.get("profile"));
+export const Header = () => {
+  let profile = null;
+  const { user: data, error, isLoading } = useUser();
 
-  // if (error) return <div>ошибка загрузки</div>;
-  // if (isLoading) return <div>загрузка...</div>;
+  if (error) return <div>ошибка загрузки</div>;
+  if (isLoading) return <div>загрузка...</div>;
 
-  // if (Cookies.get("profile")) {
-  //   profile = <p>sdfd</p>;
-  // } else {
-  //   profile = (
-  //     <Link className={styles.button} href="/login">
-  //       Войти
-  //     </Link>
-  //   );
-  // }
+  data
+    ? (profile = (
+        <div className={styles.container}>
+          <p className={styles.name}>{data.name}</p>
+          <div className={styles.image}>
+            <p className={styles.imageText}>
+              {data.name.slice(0, 1).toUpperCase()}
+            </p>
+          </div>
+        </div>
+      ))
+    : (profile = (
+        <Link className={styles.button} href="/login">
+          Войти
+        </Link>
+      ));
 
   return (
     <header className={styles.header}>
@@ -35,9 +39,7 @@ export const Header = (props: User) => {
       <span className={styles.text}>
         Разрабатываем и запускаем сложные веб проекты
       </span>
-      <Link className={styles.button} href="/login">
-        Войти
-      </Link>
+      {profile}
     </header>
   );
 };

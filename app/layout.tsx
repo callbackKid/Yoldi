@@ -1,4 +1,5 @@
 import { Header } from "../components/Header";
+import useSWR, { SWRConfig } from "swr";
 import "./globals.css";
 
 export default function RootLayout({
@@ -10,7 +11,8 @@ export default function RootLayout({
     <html>
       <head />
       <body>
-        <Header name={""} email={""} key={""} image={"null"} />
+        <Header />
+
         {children}
       </body>
     </html>
