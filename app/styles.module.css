@@ -117,12 +117,22 @@
 .footerButton:link {
   text-decoration: none;
 }
-@media (max-width: 500px) {
+@media (max-width: 400px) {
   .registerForm {
     background: #ffffff;
     border: none;
     left: auto;
     width: auto;
     top: 80px;
+  }
+  .title {
+    padding-left: auto;
+  }
+
+  .registerPage {
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    width: auto;
   }
 }

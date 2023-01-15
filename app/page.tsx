@@ -49,7 +49,7 @@ function Register() {
         email: email,
         password: password,
       });
-      console.log(key);
+
       Cookies.set("profile", key.value);
 
       setStatus("User");
@@ -72,7 +72,7 @@ function Register() {
   };
 
   return (
-    <div>
+    <div className={styles.registerPage}>
       <form className={styles.registerForm} onSubmit={submitForm}>
         <p className={styles.title}>Регистрация в Yoldi Agency</p>
 
