@@ -35,14 +35,13 @@ function AccountPage() {
     "https://frontend-test-api.yoldi.agency/api/image",
     imagePostRequest
   );
+  let userName = "";
+  useEffect(() => {
+    data ? Cookies.set("name", data.name) : "error";
+    data ? Cookies.set("slug", data.slug) : "error";
+  });
   if (error) return <div>ошибка загрузки</div>;
   if (isLoading) return <div>загрузка...</div>;
-
-  let userName = "";
-
-  data ? Cookies.set("name", data.name) : "error";
-  data ? Cookies.set("slug", data.slug) : "error";
-  data ? data.name.slice(0, 1).toUpperCase() : "user";
 
   let description = null;
   if (typeof window !== "undefined") {
@@ -81,6 +80,7 @@ function AccountPage() {
   const logOut = () => {
     router.push("/login");
     Cookies.remove("profile");
+    mutate();
   };
 
   const deleteImage = () => {
@@ -168,7 +168,7 @@ function AccountPage() {
             <Image
               src={URL.createObjectURL(selectedAvatarImage)}
               className={styles.image}
-              alt={userName}
+              alt={"user"}
               width={50}
               height={50}
             />

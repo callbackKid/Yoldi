@@ -1,8 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
-import { User } from "../app/types";
 import styles from "./HeaderStyles.module.css";
 import Link from "next/link";
 import Cookies from "js-cookie";
@@ -15,27 +13,22 @@ export const Header = () => {
       Войти
     </Link>
   );
-  //const { user: data, error, isLoading } = useUser();
 
-  // if (error) return <div>ошибка загрузки</div>;
-  // if (isLoading) return <div>загрузка...</div>;
+  const { user: data, error, isLoading } = useUser();
 
-  // !data
-  //   ? (profile = (
-  //       <Link className={styles.button} href="/login">
-  //         Войти
-  //       </Link>
-  //     ))
-  //   : (profile = (
-  //       <div className={styles.container}>
-  //         <p className={styles.name}>{data.name}</p>
-  //         <div className={styles.image}>
-  //           <p className={styles.imageText}>
-  //             {/* {data.name.slice(0, 1).toUpperCase()} */}
-  //           </p>
-  //         </div>
-  //       </div>
-  //     ));
+  if (error) return <div>ошибка загрузки</div>;
+  if (isLoading) return <div>загрузка...</div>;
+
+  if (data.name) {
+    profile = (
+      <div className={styles.container}>
+        <p className={styles.name}>{data.name}</p>
+        <div className={styles.image}>
+          <p className={styles.imageText}>{data.name.slice(0, 1)}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <header className={styles.header}>
