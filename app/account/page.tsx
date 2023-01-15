@@ -21,6 +21,9 @@ function AccountPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [fill, setFill] = useState(false);
   const { user: data, error, isLoading } = useUser();
+
+  data ? Cookies.set("name", data.name) : "error";
+
   let description = null;
 
   if (typeof window !== "undefined") {
@@ -173,7 +176,7 @@ function AccountPage() {
         <div className={styles.headerContainer}>
           <div className={styles.infoContainer}>
             <span className={styles.name}>{data.name}</span>
-            <span className={styles.email}>{data.email}</span>
+            <span className={styles.email}>{data.slug}</span>
           </div>
           <button onClick={() => setIsOpen(true)} className={styles.editButton}>
             <Image

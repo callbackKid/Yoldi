@@ -44,6 +44,7 @@ const Login = () => {
       });
       Cookies.set("profile", key.value);
       Cookies.set("password", password);
+
       if (key.value) {
         router.push("./account");
       }

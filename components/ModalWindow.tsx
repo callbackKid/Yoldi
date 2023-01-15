@@ -12,6 +12,14 @@ export default function ModalWindow({
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const password = Cookies.get("password");
+  const slugInput = Cookies.get("slug");
+  const nameInput = Cookies.get("name");
+
+  let descInput = "";
+  if (window.localStorage.getItem("description") !== null) {
+    descInput = window.localStorage.getItem("description")!;
+  }
+
   const router = useRouter();
   const { trigger } = useSWRMutation(
     "https://frontend-test-api.yoldi.agency/api/profile",
@@ -19,23 +27,22 @@ export default function ModalWindow({
   );
   const saveData = async () => {
     setIsOpen(false);
-    console.log(slug);
     await trigger({
       name: name,
       password: password,
       slug: slug,
     });
-    window.localStorage.setItem("description", description);
+    description && window.localStorage.setItem("description", description);
     router.refresh();
   };
 
-  const cancelAction = () => {
-    setIsOpen(true);
+  const cancelWindow = () => {
+    setIsOpen(false);
   };
 
-  const [name, setName] = useState("");
-  const [slug, setSlug] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState(nameInput);
+  const [slug, setSlug] = useState(slugInput);
+  const [description, setDescription] = useState(descInput);
 
   const onNameChange = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -80,7 +87,7 @@ export default function ModalWindow({
           value={description}
         />
         <div className={styles.buttonContainer}>
-          <button className={styles.canceled} onClick={cancelAction}>
+          <button className={styles.canceled} onClick={cancelWindow}>
             Отмена
           </button>
           <button className={styles.save} onClick={saveData}>

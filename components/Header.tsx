@@ -10,7 +10,6 @@ import useSWR, { preload } from "swr";
 import useUser from "../apis/useuser";
 
 export const Header = (props: User) => {
-  // const [isEntered, setEntred] = useState<boolean>(false);
   // const { user: data, error, isLoading } = useUser();
   // console.log(data);
   // let profile = <p>sdfd</p>;
