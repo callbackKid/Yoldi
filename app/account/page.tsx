@@ -21,7 +21,12 @@ function AccountPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [fill, setFill] = useState(false);
   const { user: data, error, isLoading } = useUser();
-  const description = window.localStorage.getItem("description");
+  let description = null;
+
+  if (typeof window !== "undefined") {
+    description = window.localStorage.getItem("description");
+  }
+
   const id = Cookies.get("imageId");
 
   // const { data, error, isLoading } = useSWR(
