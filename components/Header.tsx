@@ -22,7 +22,9 @@ export const Header = () => {
   if (data.name) {
     profile = (
       <div className={styles.container}>
-        <p className={styles.name}>{data.name}</p>
+        <Link href="/accountsList">
+          <p className={styles.name}>{data.name}</p>
+        </Link>
         <div className={styles.image}>
           <p className={styles.imageText}>{data.name.slice(0, 1)}</p>
         </div>
